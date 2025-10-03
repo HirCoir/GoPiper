@@ -1,0 +1,55 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+ttsgo
+ttsgo-*
+
+# Test binary
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Dependency directories
+vendor/
+
+# Go workspace file
+go.work
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Piper directory (not included in repo)
+piper/
+
+# Models directory
+models/
+
+# FFmpeg binaries
+ffmpeg.exe
+ffmpeg
+ffprobe.exe
+ffprobe
+
+# Temporary files
+*.tmp
+*.log
+
+# Build artifacts
+dist/
+build/
+
+# Documentation and versions
+readmes/
+versiones/
