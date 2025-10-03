@@ -1,4 +1,4 @@
-module ttsgo
+module gopiper
 
 go 1.21
 

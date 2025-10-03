@@ -24,7 +24,7 @@ echo.
 
 REM Step 3: Build the project
 echo [3/3] 🔨 Building GoPiper...
-go build -o gopiper.exe .
+go build .
 if %errorlevel% neq 0 (
     echo ❌ Build failed
     exit /b %errorlevel%

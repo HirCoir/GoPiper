@@ -25,7 +25,7 @@ echo ""
 
 # Step 3: Build the project
 echo "[3/3] 🔨 Building GoPiper..."
-go build -o gopiper .
+go build .
 if [ $? -ne 0 ]; then
     echo "❌ Build failed"
     exit 1

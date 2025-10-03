@@ -145,7 +145,7 @@ func corsMiddleware(next http.Handler) http.Handler {
 // Extract embedded piper files to temporary directory
 func extractEmbeddedPiper() error {
 	// Create temp directory
-	tempDir, err := os.MkdirTemp("", "ttsgo-piper-*")
+	tempDir, err := os.MkdirTemp("", "gopiper-piper-*")
 	if err != nil {
 		return fmt.Errorf("failed to create temp directory: %v", err)
 	}

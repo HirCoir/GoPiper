@@ -14,7 +14,7 @@ install-piper:
 # Build for current platform
 build: install-piper
 	@echo "Building for current platform..."
-	go build -o ttsgo .
+	go build .
 	@echo "✓ Build complete"
 
 # Run the server
@@ -25,26 +25,26 @@ run:
 # Build for Windows
 windows: install-piper
 	@echo "Building for Windows (amd64)..."
-	GOOS=windows GOARCH=amd64 go build -o ttsgo-windows-amd64.exe .
-	@echo "✓ Windows build complete: ttsgo-windows-amd64.exe"
+	GOOS=windows GOARCH=amd64 go build -o gopiper-windows-amd64.exe .
+	@echo "✓ Windows build complete: gopiper-windows-amd64.exe"
 
 # Build for Linux
 linux: install-piper
 	@echo "Building for Linux (amd64)..."
-	GOOS=linux GOARCH=amd64 go build -o ttsgo-linux-amd64 .
-	@echo "✓ Linux build complete: ttsgo-linux-amd64"
+	GOOS=linux GOARCH=amd64 go build -o gopiper-linux-amd64 .
+	@echo "✓ Linux build complete: gopiper-linux-amd64"
 
 # Build for Linux ARM64
 linux-arm64: install-piper
 	@echo "Building for Linux ARM64..."
-	GOOS=linux GOARCH=arm64 go build -o ttsgo-linux-arm64 .
-	@echo "✓ Linux ARM64 build complete: ttsgo-linux-arm64"
+	GOOS=linux GOARCH=arm64 go build -o gopiper-linux-arm64 .
+	@echo "✓ Linux ARM64 build complete: gopiper-linux-arm64"
 
 # Build for Linux ARM (32-bit)
 linux-arm: install-piper
 	@echo "Building for Linux ARM (32-bit)..."
-	GOOS=linux GOARCH=arm go build -o ttsgo-linux-arm .
-	@echo "✓ Linux ARM build complete: ttsgo-linux-arm"
+	GOOS=linux GOARCH=arm go build -o gopiper-linux-arm .
+	@echo "✓ Linux ARM build complete: gopiper-linux-arm"
 
 # Build for all platforms
 build-all: install-piper windows linux linux-arm64 linux-arm
@@ -56,11 +56,11 @@ build-all: install-piper windows linux linux-arm64 linux-arm
 # Clean build artifacts
 clean:
 	@echo "Cleaning build artifacts..."
-	rm -f ttsgo ttsgo.exe
-	rm -f ttsgo-windows-amd64.exe
-	rm -f ttsgo-linux-amd64
-	rm -f ttsgo-linux-arm64
-	rm -f ttsgo-linux-arm
+	rm -f gopiper gopiper.exe
+	rm -f gopiper-windows-amd64.exe
+	rm -f gopiper-linux-amd64
+	rm -f gopiper-linux-arm64
+	rm -f gopiper-linux-arm
 	@echo "✓ Clean complete"
 
 # Run tests

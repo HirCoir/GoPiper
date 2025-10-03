@@ -4,6 +4,8 @@
 *.dll
 *.so
 *.dylib
+gopiper
+gopiper-*
 ttsgo
 ttsgo-*
 
