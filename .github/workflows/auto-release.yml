@@ -1,0 +1,69 @@
+name: Auto Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  auto-release:
+    runs-on: ubuntu-latest
+    if: startsWith(github.event.head_commit.message, '+')
+    
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Get latest tag and increment version
+        id: version
+        run: |
+          # Obtener el último tag
+          LATEST_TAG=$(git tag -l "v0.*" --sort=-version:refname | head -n 1)
+          
+          if [ -z "$LATEST_TAG" ]; then
+            # Si no hay tags, empezar con v0.1
+            NEW_VERSION="v0.1"
+            echo "No se encontraron tags previos. Iniciando con v0.1"
+          else
+            echo "Último tag encontrado: $LATEST_TAG"
+            
+            # Extraer el número después del punto (ej: v0.3 -> 3)
+            MINOR_VERSION=$(echo $LATEST_TAG | sed 's/v0\.//')
+            
+            # Incrementar en 1
+            NEW_MINOR=$((MINOR_VERSION + 1))
+            NEW_VERSION="v0.$NEW_MINOR"
+            
+            echo "Incrementando de $LATEST_TAG a $NEW_VERSION"
+          fi
+          
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "Nueva versión: $NEW_VERSION"
+      
+      - name: Extract release notes from commit message
+        id: release_notes
+        run: |
+          # Obtener el mensaje del commit sin el prefijo "+"
+          COMMIT_MSG="${{ github.event.head_commit.message }}"
+          RELEASE_NOTES=$(echo "$COMMIT_MSG" | sed 's/^+ *//')
+          
+          # Guardar las notas de release
+          echo "notes<<EOF" >> $GITHUB_OUTPUT
+          echo "$RELEASE_NOTES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.version.outputs.new_version }}
+          name: Release ${{ steps.version.outputs.new_version }}
+          body: ${{ steps.release_notes.outputs.notes }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
